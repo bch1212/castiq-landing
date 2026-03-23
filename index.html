@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CastIQ — Cast Smarter. Catch More.</title>
+    <meta name="description" content="CastIQ is the fishing intelligence platform that combines real-time stocking reports, water temperatures, and weather data to help you catch more fish.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --dark: #0f172a;
+            --darker: #020617;
+            --gray: #94a3b8;
+            --light: #f8fafc;
+            --accent: #38bdf8;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Animated water background */
+        .bg-water {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(14,165,233,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(2,132,199,0.1) 0%, transparent 50%),
+                var(--darker);
+            z-index: -1;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span { color: var(--primary); }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { color: var(--light); }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(14,165,233,0.15);
+            border: 1px solid rgba(14,165,233,0.3);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+        
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(14,165,233,0.4);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(14,165,233,0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: var(--light);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+        
+        /* Email signup */
+        .signup-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 480px;
+            margin: 0 auto 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .signup-form input {
+            flex: 1;
+            min-width: 240px;
+            padding: 0.9rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06);
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .signup-form input::placeholder { color: var(--gray); }
+        .signup-form input:focus { border-color: var(--primary); }
+        
+        .signup-form .btn { white-space: nowrap; }
+        
+        .signup-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: -1rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 6rem;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(14,165,233,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        footer a { color: var(--accent); text-decoration: none; }
+        
+        /* Regions section */
+        .regions {
+            text-align: center;
+            padding: 2rem 2rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .regions h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .regions p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        .region-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .region-tag {
+            background: rgba(14,165,233,0.1);
+            border: 1px solid rgba(14,165,233,0.2);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .region-tag.coming-soon {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 3rem 1.5rem 2rem; }
+            .stats { gap: 2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-water"></div>
+    
+    <nav>
+        <div class="logo">Cast<span>IQ</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#regions">Coverage</a>
+            <a href="#signup">Early Access</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="badge">🎣 LAUNCHING SPRING 2026</div>
+        <h1>Cast Smarter.<br><span class="highlight">Catch More.</span></h1>
+        <p class="subtitle">
+            Real-time stocking reports, water temperatures, and weather data for every lake — 
+            so you always know where the fish are biting.
+        </p>
+        
+        <div id="signup" class="signup-form">
+            <input type="email" placeholder="Enter your email for early access" id="email-input">
+            <button class="btn btn-primary" onclick="handleSignup()">Get Early Access</button>
+        </div>
+        <p class="signup-note">Free to start. No credit card required.</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">1,189</div>
+                <div class="stat-label">Lakes tracked</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4,976</div>
+                <div class="stat-label">Stocking events</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Live conditions</div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <div class="feature">
+            <div class="feature-icon">🐟</div>
+            <h3>DNR Stocking Reports</h3>
+            <p>Automated daily pulls from state DNR databases. Know exactly when and where fish are stocked — trout, walleye, musky, and more.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🌡️</div>
+            <h3>Water Temperature</h3>
+            <p>Real-time water temps from USGS monitoring stations. Find the thermal sweet spots where fish are actively feeding.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">⛅</div>
+            <h3>Weather Integration</h3>
+            <p>Hyperlocal forecasts for every lake. Barometric pressure, wind, precipitation — the conditions that drive fish behavior.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3>Fishing Intelligence</h3>
+            <p>AI-powered bite predictions combining stocking data, water conditions, weather patterns, and seasonal trends.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📱</div>
+            <h3>Mobile App</h3>
+            <p>Take CastIQ on the water. Offline lake data, GPS-based nearby lakes, and photo-to-lake identification.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📬</div>
+            <h3>Weekly Newsletter</h3>
+            <p>Curated fishing intel delivered to your inbox — top stocking events, hot lakes, and weekend forecasts for your region.</p>
+        </div>
+    </section>
+    
+    <section id="regions" class="regions">
+        <h2>Growing Coverage</h2>
+        <p>Starting in the Upper Midwest, expanding nationwide.</p>
+        <div class="region-tags">
+            <span class="region-tag">🟢 Minnesota</span>
+            <span class="region-tag">🟢 Wisconsin</span>
+            <span class="region-tag coming-soon">Michigan — coming soon</span>
+            <span class="region-tag coming-soon">Iowa — coming soon</span>
+            <span class="region-tag coming-soon">Illinois — coming soon</span>
+            <span class="region-tag coming-soon">All 50 states — 2027</span>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2026 CastIQ. Cast smarter. Catch more.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="mailto:brett@vikinetic.com">Contact</a> · 
+            <a href="#">Privacy Policy</a> · 
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
+    
+    <div id="toast" style="display:none; position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); background:var(--primary); color:white; padding:1rem 2rem; border-radius:12px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:100;">
+        🎣 You're on the list! We'll be in touch.
+    </div>
+    
+    <script>
+        function handleSignup() {
+            const email = document.getElementById('email-input').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            // Show success toast
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            document.getElementById('email-input').value = '';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+        
+        // Enter key submits
+        document.getElementById('email-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleSignup();
+        });
+    </script>
+</body>
+</html>
