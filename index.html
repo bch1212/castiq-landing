@@ -27,15 +27,13 @@
             overflow-x: hidden;
         }
         
-        /* Animated water background */
+        /* Hero background */
         .bg-water {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: 
-                radial-gradient(ellipse at 20% 50%, rgba(14,165,233,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(2,132,199,0.1) 0%, transparent 50%),
-                var(--darker);
+                linear-gradient(180deg, rgba(2,6,23,0.6) 0%, rgba(2,6,23,0.85) 50%, rgba(2,6,23,0.97) 75%, var(--darker) 100%),
+                url('hero-bg.jpg') center top / cover no-repeat;
             z-index: -1;
         }
         
@@ -49,12 +47,10 @@
         }
         
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            height: 40px;
         }
         
-        .logo span { color: var(--primary); }
+        .logo img { height: 100%; width: auto; }
         
         .nav-links a {
             color: var(--gray);
@@ -72,6 +68,12 @@
             margin: 0 auto;
             padding: 6rem 2rem 4rem;
             text-align: center;
+        }
+        
+        .hero-logo {
+            width: clamp(200px, 30vw, 320px);
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
         }
         
         .badge {
@@ -319,7 +321,7 @@
     <div class="bg-water"></div>
     
     <nav>
-        <div class="logo">Cast<span>IQ</span></div>
+        <div class="logo"><img src="logo.png" alt="CastIQ"></div>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#regions">Coverage</a>
@@ -328,6 +330,7 @@
     </nav>
     
     <section class="hero">
+        <img src="logo.png" alt="CastIQ" class="hero-logo">
         <div class="badge">🎣 LAUNCHING SPRING 2026</div>
         <h1>Cast Smarter.<br><span class="highlight">Catch More.</span></h1>
         <p class="subtitle">
