@@ -3,453 +3,824 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CastIQ — Cast Smarter. Catch More.</title>
-    <meta name="description" content="CastIQ is the fishing intelligence platform that combines real-time stocking reports, water temperatures, and weather data to help you catch more fish.">
+    <title>CastIQ — Fishing Intelligence Platform</title>
+    <meta name="description" content="Know where the fish are before you leave the house. Real-time stocking reports, HotLake scores, water temps, and weather for 72,000+ lakes. Free to start.">
+    <meta property="og:title" content="CastIQ — Cast Smarter. Catch More.">
+    <meta property="og:description" content="Real-time stocking reports and HotLake scores for 72,000+ lakes. Know where to go before you waste a Saturday.">
+    <meta property="og:image" content="https://castiq.net/logo.png">
+    <meta property="og:url" content="https://castiq.net">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
-            --dark: #0f172a;
-            --darker: #020617;
+            --green: #22c55e;
+            --green-dark: #15803d;
+            --green-dim: rgba(34,197,94,0.15);
+            --green-border: rgba(34,197,94,0.3);
+            --dark: #0f1a0f;
+            --darker: #080f08;
+            --surface: rgba(255,255,255,0.04);
+            --border: rgba(255,255,255,0.08);
             --gray: #94a3b8;
-            --light: #f8fafc;
-            --accent: #38bdf8;
+            --light: #f0fdf4;
+            --amber: #f59e0b;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             background: var(--darker);
             color: var(--light);
             overflow-x: hidden;
         }
-        
-        /* Hero background */
+
         .bg-water {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: 
-                linear-gradient(180deg, rgba(2,6,23,0.6) 0%, rgba(2,6,23,0.85) 50%, rgba(2,6,23,0.97) 75%, var(--darker) 100%),
+            background:
+                linear-gradient(180deg, rgba(8,15,8,0.55) 0%, rgba(8,15,8,0.82) 45%, rgba(8,15,8,0.97) 70%, var(--darker) 100%),
                 url('hero-bg.jpg') center top / cover no-repeat;
             z-index: -1;
         }
-        
+
+        /* ── Nav ── */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2rem;
+            padding: 1.25rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        
-        .logo {
-            height: 40px;
-        }
-        
+
+        .logo { height: 36px; }
         .logo img { height: 100%; width: auto; }
-        
+
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+
         .nav-links a {
             color: var(--gray);
             text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
+            padding: 0.5rem 0.875rem;
+            font-size: 0.875rem;
             font-weight: 500;
             transition: color 0.2s;
         }
-        
+
         .nav-links a:hover { color: var(--light); }
-        
+
+        .nav-cta {
+            background: var(--green) !important;
+            color: #000 !important;
+            border-radius: 8px;
+            font-weight: 600 !important;
+        }
+
+        .nav-cta:hover { background: #16a34a !important; }
+
+        /* ── Founding Angler Banner ── */
+        .founding-banner {
+            background: linear-gradient(90deg, rgba(245,158,11,0.12), rgba(245,158,11,0.08));
+            border-bottom: 1px solid rgba(245,158,11,0.25);
+            text-align: center;
+            padding: 0.6rem 1rem;
+            font-size: 0.82rem;
+            color: #fcd34d;
+        }
+
+        .founding-banner strong { color: var(--amber); }
+        .founding-banner a { color: var(--amber); font-weight: 600; text-decoration: underline; }
+
+        /* ── Hero ── */
         .hero {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 6rem 2rem 4rem;
+            padding: 5rem 2rem 3rem;
             text-align: center;
         }
-        
-        .hero-logo {
-            width: clamp(200px, 30vw, 320px);
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
-        }
-        
-        .badge {
-            display: inline-block;
-            background: rgba(14,165,233,0.15);
-            border: 1px solid rgba(14,165,233,0.3);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green-dim);
+            border: 1px solid var(--green-border);
+            color: var(--green);
+            padding: 0.35rem 1rem;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            margin-bottom: 2rem;
             letter-spacing: 0.5px;
+            margin-bottom: 1.75rem;
         }
-        
+
+        .live-dot {
+            width: 7px; height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
+            line-height: 1.08;
             letter-spacing: -1.5px;
+            margin-bottom: 1.25rem;
         }
-        
+
         h1 .highlight {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, var(--green), #86efac);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.65;
         }
-        
-        .cta-group {
+
+        .hero-ctas {
+            display: flex;
+            gap: 0.875rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.875rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.18s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(34,197,94,0.35);
+        }
+
+        .btn-primary:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(34,197,94,0.45);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--light);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+        /* ── Stats row ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding: 0 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--green);
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+
+        /* ── Section layout ── */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--green);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: -0.75px;
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.65;
+            max-width: 540px;
+        }
+
+        /* ── Features grid ── */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.25s;
+        }
+
+        .feature:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--green-border);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon { font-size: 1.75rem; margin-bottom: 0.875rem; }
+        .feature h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .feature p { color: var(--gray); font-size: 0.875rem; line-height: 1.6; }
+
+        /* ── Founding Angler section ── */
+        .founding-section {
+            background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.04) 100%);
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .founding-badge {
+            display: inline-block;
+            background: rgba(245,158,11,0.15);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: var(--amber);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .founding-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fcd34d;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .founding-price span { font-size: 1.25rem; font-weight: 600; letter-spacing: 0; }
+
+        .founding-detail {
+            font-size: 0.875rem;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .founding-sub {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .spots-bar-wrap {
+            max-width: 320px;
+            margin: 0 auto 1.75rem;
+        }
+
+        .spots-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .spots-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .spots-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--amber), #fbbf24);
+            border-radius: 3px;
+            width: 12%;
+            transition: width 1s ease;
+        }
+
+        .btn-founding {
+            background: var(--amber);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(245,158,11,0.35);
+        }
+
+        .btn-founding:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        /* ── Pricing ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+
+        .plan {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .plan.featured {
+            border-color: var(--green-border);
+            background: rgba(34,197,94,0.05);
+            position: relative;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.875rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .plan-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.875rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .plan-price sup { font-size: 1.25rem; vertical-align: top; margin-top: 0.3rem; }
+        .plan-price .per { font-size: 0.9rem; font-weight: 500; color: var(--gray); letter-spacing: 0; }
+
+        .plan-annual {
+            font-size: 0.8rem;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .plan-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.75rem; }
+
+        .plan-features li {
+            font-size: 0.875rem;
+            color: var(--gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .plan-features li::before {
+            content: "✓";
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .plan-features li.muted::before { color: #475569; }
+        .plan-features li.muted { color: #475569; }
+
+        .btn-plan {
+            width: 100%;
+            justify-content: center;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-plan-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gray);
+        }
+
+        .btn-plan-outline:hover { border-color: var(--green-border); color: var(--light); background: var(--surface); }
+
+        /* ── Coverage ── */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.625rem;
+            margin-top: 2rem;
+        }
+
+        .coverage-item {
+            background: var(--green-dim);
+            border: 1px solid var(--green-border);
+            color: #86efac;
+            padding: 0.5rem 0.875rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .coverage-item.soon {
+            background: var(--surface);
+            border-color: var(--border);
+            color: #475569;
+        }
+
+        /* ── App store ── */
+        .app-section { text-align: center; }
+
+        .app-badges {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 4rem;
-        }
-        
-        .btn {
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 20px rgba(14,165,233,0.4);
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 25px rgba(14,165,233,0.5);
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.08);
-            color: var(--light);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.12);
-        }
-        
-        /* Email signup */
-        .signup-form {
-            display: flex;
-            gap: 0.75rem;
-            max-width: 480px;
-            margin: 0 auto 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .signup-form input {
-            flex: 1;
-            min-width: 240px;
-            padding: 0.9rem 1.25rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.06);
-            color: white;
-            font-size: 1rem;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        
-        .signup-form input::placeholder { color: var(--gray); }
-        .signup-form input:focus { border-color: var(--primary); }
-        
-        .signup-form .btn { white-space: nowrap; }
-        
-        .signup-note {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: -1rem;
-            margin-bottom: 3rem;
-        }
-        
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 2rem 6rem;
-        }
-        
-        .feature {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-        
-        .feature:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(14,165,233,0.3);
-            transform: translateY(-2px);
-        }
-        
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .feature p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        /* Stats */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            padding: 3rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-        
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-top: 0.25rem;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-        
-        footer a { color: var(--accent); text-decoration: none; }
-        
-        /* Regions section */
-        .regions {
-            text-align: center;
-            padding: 2rem 2rem 4rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .regions h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        
-        .regions p {
-            color: var(--gray);
-            margin-bottom: 2rem;
-        }
-        
-        .region-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .region-tag {
-            background: rgba(14,165,233,0.1);
-            border: 1px solid rgba(14,165,233,0.2);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        .region-tag.coming-soon {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.1);
-            color: var(--gray);
+            margin-top: 2rem;
         }
 
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .app-badge:hover { border-color: var(--green-border); background: rgba(34,197,94,0.05); }
+        .app-badge svg { opacity: 0.8; }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover { color: var(--green); }
+
+        footer p { font-size: 0.82rem; color: var(--gray); margin-bottom: 0.5rem; }
+        footer a { color: #86efac; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ── Responsive ── */
         @media (max-width: 640px) {
-            .hero { padding: 3rem 1.5rem 2rem; }
-            .stats { gap: 2rem; }
-            .nav-links { display: none; }
+            nav { padding: 1rem 1.25rem; }
+            .nav-links a:not(.nav-cta) { display: none; }
+            .hero { padding: 3rem 1.25rem 2rem; }
+            .section { padding: 3.5rem 1.25rem; }
+            .stats { gap: 1.75rem; }
+            .founding-section { padding: 2rem 1.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="bg-water"></div>
-    
+
+    <!-- Founding Angler banner -->
+    <div class="founding-banner">
+        🎣 <strong>Founding Angler spots are open.</strong> Lock in Pro forever at $29.99/yr — <a href="https://app.castiq.net/signup?plan=founding">claim yours before they're gone →</a>
+    </div>
+
     <nav>
         <div class="logo"><img src="logo.png" alt="CastIQ"></div>
         <div class="nav-links">
             <a href="#features">Features</a>
-            <a href="#regions">Coverage</a>
-            <a href="#signup">Early Access</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#coverage">Coverage</a>
+            <a href="https://app.castiq.net/login">Sign In</a>
+            <a href="https://app.castiq.net/signup" class="btn nav-cta">Start Free</a>
         </div>
     </nav>
-    
+
+    <!-- Hero -->
     <section class="hero">
-        <img src="logo.png" alt="CastIQ" class="hero-logo">
-        <div class="badge">🎣 LAUNCHING SPRING 2026</div>
-        <h1>Cast Smarter.<br><span class="highlight">Catch More.</span></h1>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            LIVE — 72,669 LAKES TRACKED
+        </div>
+
+        <h1>Know where the fish are<br><span class="highlight">before you leave the house.</span></h1>
+
         <p class="subtitle">
-            Real-time stocking reports, water temperatures, and weather data for every lake — 
-            so you always know where the fish are biting.
+            Real-time stocking reports, HotLake™ scores, water temps, and weather data for 72,000+ lakes across the US. Stop guessing. Start catching.
         </p>
-        
-        <div id="signup" class="signup-form">
-            <input type="email" placeholder="Enter your email for early access" id="email-input">
-            <button class="btn btn-primary" onclick="handleSignup()">Get Early Access</button>
-        </div>
-        <p class="signup-note">Free to start. No credit card required.</p>
-        
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-number">1,189</div>
-                <div class="stat-label">Lakes tracked</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">4,976</div>
-                <div class="stat-label">Stocking events</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Live conditions</div>
-            </div>
+
+        <div class="hero-ctas">
+            <a href="https://app.castiq.net/signup" class="btn btn-primary">🎣 Start Fishing Smarter — Free</a>
+            <a href="#pricing" class="btn btn-secondary">See Pricing</a>
         </div>
     </section>
-    
-    <section id="features" class="features">
-        <div class="feature">
-            <div class="feature-icon">🐟</div>
-            <h3>DNR Stocking Reports</h3>
-            <p>Automated daily pulls from state DNR databases. Know exactly when and where fish are stocked — trout, walleye, musky, and more.</p>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">72,669</div>
+            <div class="stat-label">Lakes tracked</div>
         </div>
-        <div class="feature">
-            <div class="feature-icon">🌡️</div>
-            <h3>Water Temperature</h3>
-            <p>Real-time water temps from USGS monitoring stations. Find the thermal sweet spots where fish are actively feeding.</p>
+        <div class="stat">
+            <div class="stat-number">293K+</div>
+            <div class="stat-label">Stocking events</div>
         </div>
-        <div class="feature">
-            <div class="feature-icon">⛅</div>
-            <h3>Weather Integration</h3>
-            <p>Hyperlocal forecasts for every lake. Barometric pressure, wind, precipitation — the conditions that drive fish behavior.</p>
+        <div class="stat">
+            <div class="stat-number">Live</div>
+            <div class="stat-label">Water conditions</div>
         </div>
-        <div class="feature">
-            <div class="feature-icon">📊</div>
-            <h3>Fishing Intelligence</h3>
-            <p>AI-powered bite predictions combining stocking data, water conditions, weather patterns, and seasonal trends.</p>
+        <div class="stat">
+            <div class="stat-number">Daily</div>
+            <div class="stat-label">Score updates</div>
         </div>
-        <div class="feature">
-            <div class="feature-icon">📱</div>
-            <h3>Mobile App</h3>
-            <p>Take CastIQ on the water. Offline lake data, GPS-based nearby lakes, and photo-to-lake identification.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-icon">📬</div>
-            <h3>Weekly Newsletter</h3>
-            <p>Curated fishing intel delivered to your inbox — top stocking events, hot lakes, and weekend forecasts for your region.</p>
-        </div>
-    </section>
-    
-    <section id="regions" class="regions">
-        <h2>Growing Coverage</h2>
-        <p>Starting in the Upper Midwest, expanding nationwide.</p>
-        <div class="region-tags">
-            <span class="region-tag">🟢 Minnesota</span>
-            <span class="region-tag">🟢 Wisconsin</span>
-            <span class="region-tag coming-soon">Michigan — coming soon</span>
-            <span class="region-tag coming-soon">Iowa — coming soon</span>
-            <span class="region-tag coming-soon">Illinois — coming soon</span>
-            <span class="region-tag coming-soon">All 50 states — 2027</span>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="social-links" style="display:flex; justify-content:center; gap:1.5rem; margin-bottom:1.5rem;">
-            <a href="https://www.instagram.com/castiq_app" target="_blank" title="Instagram" style="color:var(--gray); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--gray)'">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="https://x.com/castiq_app" target="_blank" title="X (Twitter)" style="color:var(--gray); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--gray)'">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.tiktok.com/@castiq" target="_blank" title="TikTok" style="color:var(--gray); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--gray)'">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61579446553559" target="_blank" title="Facebook" style="color:var(--gray); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--gray)'">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-        </div>
-        <p>© 2026 CastIQ. Cast smarter. Catch more.</p>
-        <p style="margin-top: 0.5rem;">
-            <a href="mailto:brett@vikinetic.com">Contact</a> · 
-            <a href="https://app.castiq.net/privacy">Privacy Policy</a> · 
-            <a href="https://castiq-frontend-production.up.railway.app/terms">Terms of Service</a>
-        </p>
-    </footer>
-    
-    <div id="toast" style="display:none; position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); background:var(--primary); color:white; padding:1rem 2rem; border-radius:12px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:100;">
-        🎣 You're on the list! We'll be in touch.
     </div>
-    
+
+    <!-- Features -->
+    <section id="features" class="section">
+        <div class="section-label">What you get</div>
+        <h2 class="section-title">Everything you need to fish smarter.</h2>
+        <p class="section-sub">CastIQ pulls from DNR databases, USGS water sensors, and weather stations — so you always have the full picture.</p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔥</div>
+                <h3>HotLake Score™</h3>
+                <p>Our AI-powered 1–100 score combines stocking recency, water temp, CPUE surveys, weather, and seasonal phase. At a glance, know which lakes are fishing hot right now.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🐟</div>
+                <h3>Real-Time Stocking Reports</h3>
+                <p>Daily automated pulls from state DNR databases. See exactly when and where walleye, trout, bass, and more were stocked — down to the species and quantity.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌡️</div>
+                <h3>Live Water Conditions</h3>
+                <p>Real-time water temps, dissolved oxygen, and flow rates from USGS monitoring stations. Find the thermal sweet spots where fish are actively feeding.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⛅</div>
+                <h3>Hyperlocal Weather</h3>
+                <p>Per-lake forecasts — barometric pressure, wind speed, precipitation, UV index. Know the conditions that drive fish behavior before you make the drive.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔔</div>
+                <h3>Stocking Alerts</h3>
+                <p>Get notified the moment your favorite lakes are stocked. Email alerts with species, quantity, and the best fishing window — first 3–5 days post-stocking.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>iOS App</h3>
+                <p>Now available on the App Store. GPS-based nearby lakes, offline lake data, and photo-to-lake identification. Your intel on the water, not just at your desk.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founding Angler -->
+    <section class="section" style="padding-top: 0;">
+        <div class="founding-section">
+            <div class="founding-badge">⚡ Founding Angler — Limited to 500</div>
+            <div class="founding-price"><span>$</span>29.99<span>/yr</span></div>
+            <div class="founding-detail">Everything in Pro — locked in forever at this price.</div>
+            <div class="founding-sub">After 500 spots fill, annual Pro is $79.99/yr. Founding Anglers keep $29.99 forever.</div>
+
+            <div class="spots-bar-wrap">
+                <div class="spots-label">
+                    <span id="spots-taken">62 spots claimed</span>
+                    <span>500 total</span>
+                </div>
+                <div class="spots-bar">
+                    <div class="spots-fill" id="spots-fill"></div>
+                </div>
+            </div>
+
+            <a href="https://app.castiq.net/signup?plan=founding" class="btn btn-founding">
+                🎣 Claim Your Founding Angler Spot
+            </a>
+            <p style="font-size:0.75rem; color:var(--gray); margin-top:1rem;">Annual only. 7-day money-back guarantee.</p>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section" style="padding-top: 2rem;">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Simple pricing. No surprises.</h2>
+        <p class="section-sub">Start free. Upgrade when you're ready to fish smarter.</p>
+
+        <div class="pricing-grid">
+            <!-- Free -->
+            <div class="plan">
+                <div class="plan-name">Free</div>
+                <div class="plan-price">$0</div>
+                <div class="plan-annual">&nbsp;</div>
+                <div class="plan-divider"></div>
+                <ul class="plan-features">
+                    <li>5 lake views per day</li>
+                    <li>Basic lake info &amp; stocking history</li>
+                    <li>10 searches per day</li>
+                    <li class="muted">No HotLake scores</li>
+                    <li class="muted">No stocking alerts</li>
+                    <li class="muted">No weather forecasts</li>
+                </ul>
+                <a href="https://app.castiq.net/signup" class="btn btn-plan btn-plan-outline">Get Started Free</a>
+            </div>
+
+            <!-- Pro -->
+            <div class="plan featured">
+                <div class="plan-badge">MOST POPULAR</div>
+                <div class="plan-name">Pro</div>
+                <div class="plan-price"><sup>$</sup>9.99<span class="per">/mo</span></div>
+                <div class="plan-annual">or $79.99/yr — save $40</div>
+                <div class="plan-divider"></div>
+                <ul class="plan-features">
+                    <li>Unlimited lake views</li>
+                    <li>HotLake Score™ for every lake</li>
+                    <li>Full stocking history &amp; species data</li>
+                    <li>Stocking alert emails</li>
+                    <li>Live water conditions</li>
+                    <li>Hyperlocal weather forecasts</li>
+                    <li>7-day free trial</li>
+                </ul>
+                <a href="https://app.castiq.net/signup?plan=pro" class="btn btn-primary btn-plan">Start 7-Day Free Trial</a>
+            </div>
+
+            <!-- Guide -->
+            <div class="plan">
+                <div class="plan-name">Guide</div>
+                <div class="plan-price"><sup>$</sup>19.99<span class="per">/mo</span></div>
+                <div class="plan-annual">or $159.99/yr — save $80</div>
+                <div class="plan-divider"></div>
+                <ul class="plan-features">
+                    <li>Everything in Pro</li>
+                    <li>All 50 states — nationwide access</li>
+                    <li>Advanced bite window forecasts</li>
+                    <li>Gear recommendations (affiliate)</li>
+                    <li>Priority data updates</li>
+                    <li>Multi-lake trip planning</li>
+                    <li>7-day free trial</li>
+                </ul>
+                <a href="https://app.castiq.net/signup?plan=guide" class="btn btn-primary btn-plan" style="background:#86efac; color:#000;">Start 7-Day Free Trial</a>
+            </div>
+        </div>
+
+        <p style="text-align:center; font-size:0.8rem; color:var(--gray); margin-top:1.5rem;">
+            Want the best deal? <a href="https://app.castiq.net/signup?plan=founding" style="color:var(--amber);">Founding Angler — $29.99/yr forever →</a>
+        </p>
+    </section>
+
+    <!-- Coverage -->
+    <section id="coverage" class="section">
+        <div class="section-label">Coverage</div>
+        <h2 class="section-title">72,669 lakes and growing.</h2>
+        <p class="section-sub">Starting in the Upper Midwest with real-time DNR data. Expanding to all 50 states.</p>
+
+        <div class="coverage-grid">
+            <div class="coverage-item">🟢 Minnesota</div>
+            <div class="coverage-item">🟢 Wisconsin</div>
+            <div class="coverage-item">🟢 Iowa</div>
+            <div class="coverage-item">🟢 Illinois</div>
+            <div class="coverage-item soon">Michigan — soon</div>
+            <div class="coverage-item soon">Indiana — soon</div>
+            <div class="coverage-item soon">Ohio — soon</div>
+            <div class="coverage-item soon">Texas — soon</div>
+            <div class="coverage-item soon">Florida — soon</div>
+            <div class="coverage-item soon">All 50 states — 2027</div>
+        </div>
+    </section>
+
+    <!-- App Store -->
+    <section class="section app-section" style="padding-top: 0;">
+        <div class="section-label">Mobile App</div>
+        <h2 class="section-title">Take it on the water.</h2>
+        <p class="section-sub" style="margin: 0 auto 0.5rem;">GPS-based nearby lakes, offline data, and photo-to-lake identification. Now live on iOS.</p>
+
+        <div class="app-badges">
+            <a href="https://apps.apple.com/app/castiq/id6747137515" class="app-badge" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download on the App Store
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="social-links">
+                <a href="https://www.instagram.com/castiq_app" target="_blank" aria-label="Instagram">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com/castiq_app" target="_blank" aria-label="X">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@castiq" target="_blank" aria-label="TikTok">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.79a4.84 4.84 0 01-1-.1z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61579446553559" target="_blank" aria-label="Facebook">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+            <p>© 2026 CastIQ — Cast smarter. Catch more.</p>
+            <p style="margin-top:0.5rem;">
+                <a href="https://app.castiq.net/privacy">Privacy Policy</a> ·
+                <a href="https://app.castiq.net/terms">Terms of Service</a> ·
+                <a href="mailto:brett@castiq.net">Contact</a>
+            </p>
+        </div>
+    </footer>
+
     <script>
-        function handleSignup() {
-            const email = document.getElementById('email-input').value;
-            if (!email || !email.includes('@')) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            // Show success toast
-            const toast = document.getElementById('toast');
-            toast.style.display = 'block';
-            document.getElementById('email-input').value = '';
-            setTimeout(() => { toast.style.display = 'none'; }, 4000);
-        }
-        
-        // Enter key submits
-        document.getElementById('email-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleSignup();
+        // Animate spots bar on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const fill = document.getElementById('spots-fill');
+                if (fill) fill.style.width = '12%';
+            }, 300);
         });
     </script>
 </body>
