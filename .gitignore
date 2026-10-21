@@ -1,0 +1,28 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+_site/
+.cache/
+.next/
+.parcel-cache/
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+desktop.ini
