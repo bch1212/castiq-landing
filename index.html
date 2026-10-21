@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CastIQ — Fishing Intelligence Platform</title>
-    <meta name="description" content="Know where the fish are before you leave the house. Real-time stocking reports, HotLake scores, water temps, and weather for 72,000+ lakes. Free to start.">
+    <meta name="description" content="Know where the fish are before you leave the house. Real-time stocking reports, HotLake scores, water temps, and weather for 72,000+ lakes. Free to start. Builders use the same data through the CastIQ API.">
     <meta property="og:title" content="CastIQ — Cast Smarter. Catch More.">
-    <meta property="og:description" content="Real-time stocking reports and HotLake scores for 72,000+ lakes. Know where to go before you waste a Saturday.">
+    <meta property="og:description" content="Real-time stocking reports and HotLake scores for 72,000+ lakes. The CastIQ API is the same intelligence for agents, over MCP.">
     <meta property="og:image" content="https://castiq.net/logo.png">
     <meta property="og:url" content="https://castiq.net">
     <meta name="twitter:card" content="summary_large_image">
@@ -468,6 +468,92 @@
 
         .btn-plan-outline:hover { border-color: var(--green-border); color: var(--light); background: var(--surface); }
 
+        .feature a { color: #86efac; text-decoration: none; }
+        .feature a:hover { text-decoration: underline; }
+
+        /* ── CastIQ API tier ── */
+        .api-tier {
+            margin-top: 2.75rem;
+            background: var(--surface);
+            border: 1px solid var(--green-border);
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.85fr);
+            gap: 2rem;
+            align-items: center;
+            scroll-margin-top: 1.5rem;
+        }
+
+        .api-kicker {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 0.6rem;
+        }
+
+        .api-tier h3 {
+            font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.65rem;
+        }
+
+        .api-tier .api-copy {
+            color: var(--gray);
+            font-size: 0.92rem;
+            line-height: 1.65;
+            margin-bottom: 1.25rem;
+        }
+
+        .api-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .api-rates {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .api-rate {
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+        }
+
+        .api-rate strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .api-rate span {
+            display: block;
+            margin-top: 0.15rem;
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .api-endpoint {
+            margin-top: 0.85rem;
+            font-size: 0.78rem;
+            color: var(--gray);
+            word-break: break-all;
+        }
+
+        .api-endpoint code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            color: #86efac;
+            font-size: 0.78rem;
+        }
+
         /* ── Coverage ── */
         .coverage-grid {
             display: grid;
@@ -563,6 +649,7 @@
             .stats { gap: 1.75rem; }
             .founding-section { padding: 2rem 1.5rem; }
             .pricing-grid { grid-template-columns: 1fr; }
+            .api-tier { grid-template-columns: 1fr; padding: 1.5rem; }
         }
     </style>
 </head>
@@ -579,6 +666,7 @@
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
+            <a href="#api">API</a>
             <a href="#coverage">Coverage</a>
             <a href="https://app.castiq.net/login">Sign In</a>
             <a href="https://app.castiq.net/signup" class="btn nav-cta">Start Free</a>
@@ -660,6 +748,11 @@
                 <h3>iOS App</h3>
                 <p>Now available on the App Store. GPS-based nearby lakes, offline lake data, and photo-to-lake identification. Your intel on the water, not just at your desk.</p>
             </div>
+            <div class="feature">
+                <div class="feature-icon">🔌</div>
+                <h3>CastIQ API</h3>
+                <p>The MCP tier of CastIQ. Agents and apps query the same lakes, stocking history, fishing scores, and weather through one endpoint. <a href="#api">See the API tier</a> or <a href="https://github.com/bch1212/outdooriq-mcp#readme">read the docs</a>.</p>
+            </div>
         </div>
     </section>
 
@@ -692,7 +785,7 @@
     <section id="pricing" class="section" style="padding-top: 2rem;">
         <div class="section-label">Pricing</div>
         <h2 class="section-title">Simple pricing. No surprises.</h2>
-        <p class="section-sub">Start free. Upgrade when you're ready to fish smarter.</p>
+        <p class="section-sub">Start free and upgrade when you want to fish smarter. Builders use the CastIQ API tier — the same data, priced for agents and apps.</p>
 
         <div class="pricing-grid">
             <!-- Free -->
@@ -753,6 +846,38 @@
         <p style="text-align:center; font-size:0.8rem; color:var(--gray); margin-top:1.5rem;">
             Want the best deal? <a href="https://app.castiq.net/signup?plan=founding" style="color:var(--amber);">Founding Angler — $29.99/yr forever →</a>
         </p>
+
+        <div id="api" class="api-tier">
+            <div>
+                <div class="api-kicker">CastIQ API</div>
+                <h3>The same fishing intelligence, for agents and apps.</h3>
+                <p class="api-copy">
+                    CastIQ API is the MCP tier of CastIQ. It exposes the CastIQ dataset — 72,669 lakes and 293,000+ stocking events — through one authenticated endpoint: lake search, stocking history, 0–100 fishing scores, live weather, and fishing reports. Ten tools, documented for Claude and any HTTP client.
+                </p>
+                <div class="api-links">
+                    <a href="https://github.com/bch1212/outdooriq-mcp#readme" class="btn btn-primary">Read the API docs</a>
+                    <a href="https://github.com/bch1212/outdooriq-mcp#tool-reference" class="btn btn-secondary">Tool reference</a>
+                    <a href="https://github.com/bch1212/outdooriq-mcp#install-in-claude" class="btn btn-secondary">Install guide</a>
+                </div>
+            </div>
+            <div>
+                <div class="api-rates">
+                    <div class="api-rate">
+                        <strong>API Free — $0</strong>
+                        <span>50 calls/day. Dev access to prototype against the live endpoint.</span>
+                    </div>
+                    <div class="api-rate">
+                        <strong>API Pro — $14/mo</strong>
+                        <span>Unlimited calls. No per-call charge.</span>
+                    </div>
+                    <div class="api-rate">
+                        <strong>API usage — $0.01/call</strong>
+                        <span>Pay as you go. No monthly minimum.</span>
+                    </div>
+                </div>
+                <p class="api-endpoint">Live MCP endpoint: <code>https://mcp.castiq.net/mcp</code></p>
+            </div>
+        </div>
     </section>
 
     <!-- Coverage -->
@@ -807,6 +932,7 @@
             </div>
             <p>© 2026 CastIQ — Cast smarter. Catch more.</p>
             <p style="margin-top:0.5rem;">
+                <a href="https://github.com/bch1212/outdooriq-mcp#readme">API Docs</a> ·
                 <a href="https://app.castiq.net/privacy">Privacy Policy</a> ·
                 <a href="https://app.castiq.net/terms">Terms of Service</a> ·
                 <a href="mailto:brett@castiq.net">Contact</a>
